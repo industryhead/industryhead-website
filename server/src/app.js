@@ -14,10 +14,10 @@ const ID_RE = /^[1-9]\d{0,9}$/;
 // Client-side pages (keep in step with PAGES in client/src/App.jsx and the rewrites in vercel.json)
 export const PAGES = new Set(["", "/admin", "/privacy", "/terms"]);
 
-/** ADMIN_TOKEN, unless it is short enough to guess or still the placeholder from .env.example (then admin stays disabled). */
+/** ADMIN_TOKEN of any length, unless it is empty or still the placeholder from .env.example (then admin stays disabled). */
 export function adminTokenFromEnv(env = process.env) {
   const t = (env.ADMIN_TOKEN || "").trim();
-  return t.length >= 32 && !/change-me/i.test(t) ? t : undefined;
+  return t && !/change-me/i.test(t) ? t : undefined;
 }
 
 /** Posts a short notice about a new enquiry to a webhook (Slack, Teams, Zapier, …). Never fails the request. */

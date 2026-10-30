@@ -17,7 +17,7 @@ const port = Number(process.env.PORT || 4000);
 // A missing ADMIN_TOKEN never falls back to a fixed, guessable value: outside production a random one is made per run.
 let adminToken = adminTokenFromEnv();
 if (!adminToken && !prod) { adminToken = randomBytes(24).toString("base64url"); console.warn(`[admin] ADMIN_TOKEN not set — using a one-off development token for this run: ${adminToken}`); }
-if (!adminToken && prod) console.warn("[admin] ADMIN_TOKEN missing or too short (32+ characters) — the admin API is disabled.");
+if (!adminToken && prod) console.warn("[admin] ADMIN_TOKEN missing (or still the .env.example placeholder) — the admin API is disabled.");
 
 const store = await storeFromEnv();
 console.log(`[store] ${store.kind}`);

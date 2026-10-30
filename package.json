@@ -17,6 +17,7 @@
     "check": "npm test && npm run build"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.0.0",

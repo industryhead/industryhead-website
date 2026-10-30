@@ -22,7 +22,7 @@ npm test           # API tests: SQLite and Postgres (in-process PGlite)
 ```
 
 Without `DATABASE_URL` the API stores data in a local SQLite file (`server/data/`, git-ignored). The API reads a project-root `.env`
-if present. Without an `ADMIN_TOKEN` (32+ characters), development runs print a one-off random admin token to the console.
+if present. Without an `ADMIN_TOKEN`, development runs print a one-off random admin token to the console.
 
 ## Deploy on Vercel
 
@@ -32,7 +32,7 @@ if present. Without an `ADMIN_TOKEN` (32+ characters), development runs print a 
    lives elsewhere). Node 22 is selected from `package.json`.
 2. **Add a Postgres database** (Vercel → Storage → *Neon* or any Postgres) and make sure `DATABASE_URL` (or `POSTGRES_URL`) is set for the project — the integration usually adds it for you.
    Tables are created on first use.
-3. **Set environment variables** (Production + Preview): `DATABASE_URL` and `ADMIN_TOKEN` (at least 32 random characters — shorter values
+3. **Set environment variables** (Production + Preview): `DATABASE_URL` and `ADMIN_TOKEN` (any length; long and random is safest — an empty value
    or the `.env.example` placeholder leave admin disabled). Recommended once the domain is connected: `VITE_SITE_URL` (e.g.
    `https://www.example.com`; adds canonical links, absolute share images and `sitemap.xml` — redeploy after setting it, as it is read at
    build time). Optional: `ENQUIRY_WEBHOOK_URL` (https; notified of each new enquiry), `VITE_CONTACT_EMAIL` (public contact address on the
