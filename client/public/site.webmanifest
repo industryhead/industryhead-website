@@ -1,0 +1,10 @@
+{
+  "name": "Industryhead",
+  "short_name": "Industryhead",
+  "description": "Decision intelligence for manufacturing",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#FAF8F2",
+  "theme_color": "#0D5360",
+  "icons": [{ "src": "/icon.png", "sizes": "456x350", "type": "image/png" }]
+}
