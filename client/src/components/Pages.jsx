@@ -24,7 +24,7 @@ export function PageShell({ title, eyebrow, children }) {
           {children}
         </div>
       </main>
-      <Footer />
+      <Footer home="/" />
     </>
   );
 }

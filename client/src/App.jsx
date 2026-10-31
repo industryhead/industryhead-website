@@ -7,7 +7,7 @@ import Transform from "./components/Transform.jsx";
 import Problem from "./components/Problem.jsx";
 import Tour from "./components/Tour.jsx";
 import Platform from "./components/Platform.jsx";
-import Suite from "./components/Suite.jsx";
+import Suite, { ProductPage, ProductsIndex } from "./components/Products.jsx";
 import Method from "./components/Method.jsx";
 import Chain from "./components/Chain.jsx";
 import Compare from "./components/Compare.jsx";
@@ -17,6 +17,7 @@ import Admin from "./components/Admin.jsx";
 import { ErrorBoundary, NotFound, Privacy, Terms } from "./components/Pages.jsx";
 import { clamp } from "./util.js";
 import { site } from "./site.js";
+import { bySlug } from "./products.js";
 
 /** Scroll progress bar, sticky-nav state and the active section for the menu. */
 function useScrollState(deps) {
@@ -93,8 +94,28 @@ function Site() {
 }
 function Loaded({ onMount, children }) { useEffect(onMount, [onMount]); return children; }
 
+function ProductSite({ slug }) {
+  const [bar, { scrolled }] = useScrollState(slug);
+  return (
+    <>
+      <a className="skip" href="#main">Skip to content</a>
+      <div className="progress" ref={bar} aria-hidden="true"></div>
+      <Nav scrolled={scrolled} active="suite" home="/" />
+      <main id="main">{slug ? <ProductPage slug={slug} /> : <ProductsIndex />}</main>
+      <Footer home="/" />
+    </>
+  );
+}
+
 // Any other path renders the 404 page (keep in step with PAGES in server/src/app.js and the rewrites in vercel.json).
-const PAGES = { "": Site, "/index.html": Site, "/admin": Admin, "/privacy": Privacy, "/terms": Terms };
+const PAGES = { "": Site, "/index.html": Site, "/admin": Admin, "/privacy": Privacy, "/terms": Terms, "/products": ProductSite };
+
+/** The page component for a path, or undefined for a 404. /products/<slug> is a page only for a known product. */
+function pageFor(path) {
+  const m = path.match(/^\/products\/([^/]+)$/);
+  if (m) return bySlug(m[1]) ? () => <ProductSite slug={m[1]} /> : undefined;
+  return PAGES[path];
+}
 
 /** <link rel=canonical> for the page being shown, so the vercel.app address and trailing-slash variants don't compete with the real domain. */
 function useCanonical(path) {
@@ -107,7 +128,7 @@ function useCanonical(path) {
 
 export default function App() {
   const path = location.pathname.replace(/\/+$/, "");
-  const Page = PAGES[path] ?? NotFound;
-  useCanonical(PAGES[path] ? path : null);
+  const Page = pageFor(path) ?? NotFound;
+  useCanonical(Page === NotFound ? null : path);
   return <ErrorBoundary><Page /></ErrorBoundary>;
 }

@@ -134,12 +134,12 @@ export function Team() {
   );
 }
 
-export function Footer() {
+export function Footer({ home = "" }) {
   return (
     <footer>
       <div className="wrap">
-        <a className="brand" href="/#top" aria-label="Industryhead home"><img src="/logo.png" alt="Industryhead" className="brand-logo" /></a>
-        <nav aria-label="Footer"><a href="/#transform">Before &amp; after</a><a href="/#platform">Platform</a><a href="/#method">Our method</a><a href="/#compare">Compare</a><a href="/#demo">Pricing &amp; demo</a></nav>
+        <a className="brand" href={home + "#top"} aria-label="Industryhead home"><img src="/logo.png" alt="Industryhead" className="brand-logo" /></a>
+        <nav aria-label="Footer"><a href={home + "#transform"}>Before &amp; after</a><a href={home + "#platform"}>Platform</a><a href={home + "#suite"}>Products</a><a href={home + "#method"}>Our method</a><a href={home + "#compare"}>Compare</a><a href={home + "#demo"}>Pricing &amp; demo</a></nav>
         <nav aria-label="Legal" className="foot-legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a>{site.contactEmail && <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>}</nav>
         <span>© {new Date().getFullYear()} Industryhead</span>
       </div>

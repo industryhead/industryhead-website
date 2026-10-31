@@ -12,7 +12,8 @@ const clone = (o) => JSON.parse(JSON.stringify(o));
 const safeEqual = (a, b) => { const x = Buffer.from(a), y = Buffer.from(b); return x.length === y.length && timingSafeEqual(x, y); };
 const ID_RE = /^[1-9]\d{0,9}$/;
 // Client-side pages (keep in step with PAGES in client/src/App.jsx and the rewrites in vercel.json)
-export const PAGES = new Set(["", "/admin", "/privacy", "/terms"]);
+export const PAGES = new Set(["", "/admin", "/privacy", "/terms", "/products",
+  ...["factory-kaizen", "skill-matrix", "sop", "audit"].map((s) => `/products/${s}`)]); // slugs from client/src/products.js
 
 /** ADMIN_TOKEN of any length, unless it is empty or still the placeholder from .env.example (then admin stays disabled). */
 export function adminTokenFromEnv(env = process.env) {

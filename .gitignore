@@ -9,6 +9,4 @@ server/data/
 .DS_Store
 # working briefs / superseded drafts used while designing (not part of the app)
 uses/
-test/
-.vercel
-.env*
+/test/

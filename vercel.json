@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
   "installCommand": "npm ci && npm ci --prefix client",
   "buildCommand": "npm run build --prefix client",
   "outputDirectory": "client/dist",
@@ -18,7 +19,11 @@
       "destination": "/api/index"
     },
     {
-      "source": "/:page(admin|privacy|terms)",
+      "source": "/:page(admin|privacy|terms|products)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/products/:slug(factory-kaizen|skill-matrix|sop|audit)",
       "destination": "/index.html"
     }
   ],
